@@ -39,6 +39,9 @@ line-height: normal;
   display: flex;
   justify-content: flex-end;
 }
+
+
+
 .text-body{
   color: white;
   width: 500px;
@@ -48,7 +51,31 @@ line-height: normal;
   padding-bottom: 10px;
   word-wrap: break-word
 }
+/* Flex container for the stack */
+.cat-stack {
+  display: flex;
+  flex-direction: column; /* Stacks items vertically */
+  align-items: center; /* Centers items horizontally */
+  justify-content: flex-end; /* Aligns items to the bottom */
+  height: 100vh; /* Full viewport height (adjust as needed) */
+  position: relative; /* Establishes a positioning context */
+  background-color: #f4f4f4; /* Optional: for visual clarity */
+}
 
+/* Overlay item styling */
+.overlay {
+  position: absolute; /* Positions the overlay relative to the flex container */
+  z-index: 1; /* Ensures the overlay is on top */
+  bottom: 0; /* Aligns the overlay at the bottom */
+  padding-left: 110px;
+}
+
+/* Bottom item styling */
+.bottom-item {
+  z-index: 0; /* Ensures this item is below the overlay */
+  width: 100%; /* Ensures the bottom item spans the full width */
+  text-align: center; /* Centers text horizontally */
+}
 button {
   background: none;
   border: none;
@@ -65,7 +92,7 @@ button {
 
 
 
-#brown-button {
+.brown-button {
   width: 350px; /* Adjust the size as needed */
   height: 75px; /* Adjust the size as needed */
   border-radius: 4px;
