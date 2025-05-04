@@ -1,3 +1,5 @@
+# Design
+Won first in Wellesley 2025 Designathon
 # Features
 Start a timer
 Saves the study session
