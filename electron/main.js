@@ -3,42 +3,36 @@ const path = require('path');
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 600,
-    height: 750,
+    width: 370,
+    height: 500,
+    resizable: false,    // ✅ Disable resizing
+    frame: false,        // ✅ Removes OS border to allow custom border
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       enableRemoteModule: false,
     },
   });
 
-  
-  // Load the React app
-  mainWindow.loadURL(
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/'
-      : `file://${path.join(__dirname, '../build/index.html')}`
-  );
+  const isDev = !app.isPackaged;
 
-
-  // Open DevTools in development mode
-  if (process.env.NODE_ENV === 'development') {
+  if (isDev) {
+    mainWindow.loadURL('http://localhost:3000');
     mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadFile(path.join(__dirname, '../build/index.html'));
   }
 }
 
-app.whenReady().then(() => {
-  createWindow();
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
-});
+app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
   }
 });

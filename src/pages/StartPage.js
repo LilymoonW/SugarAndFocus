@@ -1,8 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import sittingCat from '../components/sittingCat.gif';
+import menu from '../components/menu.png';
+
 
 function StartPage() {
+
+    const navigate = useNavigate();  // Hook for programmatic navigation
+      const handleFocusClick = () => {
+      navigate('/main');  // Navigate to /start page
+    };
+
   return (
-    <div>
+    <div className ="page">
       <div className="header">
         <h1 className="title">Sugar & Focus</h1>
         <div id="headerphotos"></div>
@@ -18,19 +29,19 @@ function StartPage() {
         <div className="container">
           <div className="cat-stack">
             <img
-              src="assets/menu.png"
+              src={menu}
               alt="cat"
-              className="overlay"
-              style={{ height: '110px', width: 'auto', imageRendering: 'pixelated' }}
+              id ="menu"
+              style={{ height: '75px', width: 'auto', imageRendering: 'pixelated' }}
             />
             <img
-              src="assets/sittingCat.gif"
+              src={sittingCat}
               alt="cat"
               className="bottom-item"
-              style={{ height: '340px', width: '340px', imageRendering: 'pixelated' }}
+              style={{ height: '230px', width: '230px', imageRendering: 'pixelated' }}
             />
           </div>
-          <button className="brown-button" id="start-button">Start</button>
+          <button className="brown-button" id="start-button" onClick={handleFocusClick} >Start</button>
         </div>
       </div>
     </div>

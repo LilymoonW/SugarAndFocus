@@ -9,29 +9,50 @@
   font-style: normal;
   font-weight: 400;
 }
+
+
 body {
   margin: 0;
   padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #7c5a51;
+  border: 8px solid #613225;  /* ✅ Custom border */
+  border-radius: 20px; 
+  box-sizing: border-box;
+  overflow: hidden;
+
+}
+
+.page{
   display: flex;
   flex-direction: column;
   align-items: center; /* Centers items horizontally */
+  width: 100%;
   height: 100vh; /* Full viewport height */
-  background-color: #7c5a51; /* Background color */
 }
-
 .title {
-  color: #95A791;
+margin: 0;
+color: #95A791;
 font-family: "Pixelify Sans", sans-serif; 
-font-size: 52px;
+font-size: 35px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
 }
 
 .header{
+  -webkit-app-region: drag;
+
   display: flex;
-  width: 500px;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 12px;
+
+  width: 325px;
+  padding-bottom: 10px;
   justify-content: space-between; /* Pushes items to the edges */
+  align-items: center; /* Centers items vertically */
 
 }
 
@@ -44,12 +65,18 @@ line-height: normal;
 
 .text-body{
   color: white;
-  width: 500px;
-  font-size: 36px;
+  width: 300px;
+  font-size: 20px;
   font-family: 'Quicksand';
   font-weight: 400;
-  padding-bottom: 10px;
-  word-wrap: break-word
+  padding-bottom: 20px;
+  word-wrap: break-word;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers items horizontally */
+  align-items: center; /* Centers items vertically */
+
 }
 /* Flex container for the stack */
 .cat-stack {
@@ -57,18 +84,10 @@ line-height: normal;
   flex-direction: column; /* Stacks items vertically */
   align-items: center; /* Centers items horizontally */
   justify-content: flex-end; /* Aligns items to the bottom */
-  height: 100vh; /* Full viewport height (adjust as needed) */
   position: relative; /* Establishes a positioning context */
-  background-color: #f4f4f4; /* Optional: for visual clarity */
 }
 
-/* Overlay item styling */
-.overlay {
-  position: absolute; /* Positions the overlay relative to the flex container */
-  z-index: 1; /* Ensures the overlay is on top */
-  bottom: 0; /* Aligns the overlay at the bottom */
-  padding-left: 110px;
-}
+
 
 /* Bottom item styling */
 .bottom-item {
@@ -81,53 +100,172 @@ button {
   border: none;
   padding: 0;
   cursor: pointer;
+  -webkit-app-region: no-drag;
+
 }
 
 .button-icon {
-  width: 50px; /* Default size of the icon */
-  height: 50px;
+  width: 30px; /* Default size of the icon */
+  height: 30px;
   border-radius: 8px; /* Optional: rounded corners */
   transition: transform 0.2s ease;
+  -webkit-app-region: no-drag;
+
 }
 
 
 
 .brown-button {
-  width: 350px; /* Adjust the size as needed */
-  height: 75px; /* Adjust the size as needed */
+  width: 250px; /* Adjust the size as needed */
+  height: 60px; /* Adjust the size as needed */
   border-radius: 4px;
   border: 4px solid #613225;
   background: #7c5a51;
   color: #95A791;
   text-align: center;
   font-family: "Pixelify Sans", sans-serif;
-  font-size: 52px;
+  font-size: 38px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;  
+  
 }
+
+#menu{
+  position: absolute; /* Positions the overlay relative to the flex container */
+  z-index: 1; /* Ensures the overlay is on top */
+  bottom: 0; /* Aligns the overlay at the bottom */
+  padding-left: 110px;
+    -webkit-app-region: no-drag;
+
+}
+#menu:hover{
+  cursor: pointer;
+  transform: scale(1.1); /* Slightly enlarge on hover */
+
+}
+
 button:hover{
   transform: scale(1.1); /* Slightly enlarge on hover */
-  cursor: pointer; 
+  cursor: pointer;
 
 }
 
 .container {
-  width: 500px; /* Adjust the size as needed */
-  height: 490px; /* Adjust the size as needed */
+  width: 100%; /* Adjust the size as needed */
+  height: 275px; /* Adjust the size as needed */
   border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   border: 4px solid #613225;
   background: #e5dac6;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: Adds depth */
   border-radius: 8px; /* Optional: rounded corners */
-
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+
+
+.cancel {
+  background: #ccc;
+}
+.time{
+  z-index: 1; /* Ensures the overlay is on top */
+  position: absolute; /* Positions the overlay relative to the flex container */
+  color: #95A791;
+  -webkit-app-region: no-drag;
+
+  font-family: "Press Start 2P", "Pixelify Sans", sans-serif; 
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.time:hover{
+  cursor: pointer;
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.picker {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.picker-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.picker-column select {
+  width: 80px;
+  height: 150px;
+  font-size: 1.5rem;
+  text-align: center;
+  overflow-y: scroll;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  scroll-snap-type: y mandatory;
+}
+
+.picker-column option {
+  scroll-snap-align: center;
+  padding: 10px 0;
+}
+
+
+.cancel {
+  background: #ccc;
 }
