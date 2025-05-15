@@ -1,15 +1,18 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
+let mainWindow;
+
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 370,
     height: 500,
-    resizable: false,    // ✅ Disable resizing
-    frame: false,        // ✅ Removes OS border to allow custom border
+    resizable: false,
+    frame: false, // custom border
     webPreferences: {
       contextIsolation: true,
       enableRemoteModule: false,
+      preload: path.join(__dirname, 'preload.js'), // <== Important
     },
   });
 
@@ -35,4 +38,15 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+// ✅ Handle Minimize & Quit from Renderer IPC
+ipcMain.on('minimize-window', () => {
+  if (mainWindow) {
+    mainWindow.minimize();
+  }
+});
+
+ipcMain.on('quit-app', () => {
+  app.quit();
 });

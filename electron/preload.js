@@ -1,8 +1,6 @@
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
-// Expose APIs to the renderer process
-contextBridge.exposeInMainWorld('electron', {
-  doSomething: () => {
-    console.log('Hello from the preload script!');
-  },
+contextBridge.exposeInMainWorld('electronAPI', {
+  minimize: () => ipcRenderer.send('minimize-window'),
+  quitApp: () => ipcRenderer.send('quit-app'),
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Header from '../components/Header';
 import sittingCat from '../components/sittingCat.gif';
 import menu from '../components/menu.png';
 
@@ -11,19 +11,27 @@ function StartPage() {
       const handleFocusClick = () => {
       navigate('/main');  // Navigate to /start page
     };
+    
+    const handleMinimize = () => {
+  if (window.electronAPI?.minimize) {
+    window.electronAPI.minimize();
+  } else {
+    console.error('electronAPI not found');
+  }
+};
+
+const handleQuitClick = () => {
+  if (window.electronAPI?.quitApp) {
+    window.electronAPI.quitApp();
+  } else {
+    console.error('electronAPI not found');
+  }
+};
 
   return (
     <div className ="page">
-      <div className="header">
-        <h1 className="title">Sugar & Focus</h1>
-        <div id="headerphotos"></div>
-        <button id="photoButton">
-          <img src="assets/minus.png" alt="Photo Icon" className="button-icon" />
-        </button>
-        <button id="photoButton">
-          <img src="assets/x.png" alt="Photo Icon" className="button-icon" />
-        </button>
-      </div>
+ 
+      <Header />
       <div className="text-body">
         Start a study timer and Bake some sweets (˶˃ ᵕ ˂˶)
         <div className="container">
