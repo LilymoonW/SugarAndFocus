@@ -35,6 +35,7 @@ const handleQuitClick = () => {
       <div className="text-body">
         Start a study timer and Bake some sweets (˶˃ ᵕ ˂˶)
         <div className="container">
+
           <div className="cat-stack">
             <img
               src={menu}

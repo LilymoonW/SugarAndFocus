@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from "react";
 import sleepingCat from "../components/sleepingCat.gif";
 import sittingCat from "../components/sittingCat.gif";
+import menu from "../components/menu.png";
 import { useNavigate } from "react-router-dom";
-import Header from '../components/Header';
+import Header from "../components/Header";
+import { useAppStore } from "../store.ts";
 
 function MainPage() {
   const navigate = useNavigate();
+  const sessions = useAppStore((state) => state.sessions);
+  const addSession = useAppStore((state) => state.addSession);
+  const selectedRecipe = useAppStore((state) => state.selectedRecipe);
+  const availableRecipes = useAppStore((state) => state.availableRecipes);
+  const coins = useAppStore((state) => state.coins);
+  const setCoins = useAppStore((state) => state.setCoins);
+
+  const handleAddCoins = (num) => {
+    setCoins(coins + num);
+  };
 
   const [time, setTime] = useState("25:00");
   const [showOverlay, setShowOverlay] = useState(false);
@@ -15,7 +27,6 @@ function MainPage() {
   const [isPaused, setIsPaused] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState(1500);
 
-  // Format time display conditionally
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -31,7 +42,6 @@ function MainPage() {
     }
   };
 
-  // Countdown logic
   useEffect(() => {
     let timer;
     if (isCounting && !isPaused && remainingSeconds > 0) {
@@ -52,13 +62,45 @@ function MainPage() {
     }
   };
 
+  useEffect(() => {
+    if (remainingSeconds === 0 && isCounting) {
+      const focusDuration = tempHour * 60 + tempMinute; // in minutes
 
+      const recipeInfo = availableRecipes.find(
+        (r) => r.name === selectedRecipe
+      );
+
+      addSession({
+        recipe: selectedRecipe,
+        focusDuration: focusDuration,
+        completed: true,
+        date: new Date().toISOString(),
+        image: recipeInfo ? recipeInfo.image : null,
+      });
+
+      handleAddCoins((tempHour * 60 + tempMinute) / 10);
+      setIsCounting(false);
+      const latestIndex = sessions.length - 1;
+
+       navigate(`/recipe`);
+      
+      console.log("Session added:" + selectedRecipe + " " + focusDuration + " minutes" + " " + new Date().toISOString() + " " + recipeInfo.image);
+    }
+  }, [
+    remainingSeconds,
+    isCounting,
+    selectedRecipe,
+    addSession,
+    tempHour,
+    tempMinute,
+    navigate,
+    availableRecipes
+  ]);
 
   const handleConfirm = () => {
     const totalSeconds = tempHour * 3600 + tempMinute * 60;
     setRemainingSeconds(totalSeconds);
 
-    // Format time according to rule
     const displayTime =
       tempHour > 0
         ? `${tempHour}h:${String(tempMinute).padStart(2, "0")}`
@@ -67,6 +109,7 @@ function MainPage() {
     setTime(displayTime);
     setShowOverlay(false);
   };
+
   const handleStop = () => {
     setIsCounting(false);
     setIsPaused(false);
@@ -78,6 +121,7 @@ function MainPage() {
     setIsPaused(false);
   };
 
+  const handleSelectItem = () => {};
 
   const handlePause = () => setIsPaused(true);
   const handleResume = () => setIsPaused(false);
@@ -89,6 +133,21 @@ function MainPage() {
       <div className="text-body">
         Start a study timer and Bake some sweets (˶˃ ᵕ ˂˶)
         <div className="container">
+          <p style={{ position: "absolute", top: 0, left: 10 }}>
+            Coins: {coins}
+          </p>
+          {!isCounting && (
+            <img
+              src={menu}
+              alt="cat"
+              id="menu2"
+              style={{
+                height: "50px",
+                width: "auto",
+                imageRendering: "pixelated",
+              }}
+            />
+          )}
           <div className="cat-stack">
             <h1
               className={`time ${isCounting ? "disabled" : ""}`}
@@ -101,7 +160,7 @@ function MainPage() {
             {showOverlay && (
               <div className="overlay">
                 <div className="modal">
-                  <h2>Select Time</h2>
+                  <h1>Select Time</h1>
                   <div className="picker">
                     <div className="picker-column">
                       <label>Hours</label>
@@ -110,7 +169,7 @@ function MainPage() {
                         value={tempHour}
                         onChange={(e) => setTempHour(+e.target.value)}
                       >
-                        {Array.from({ length: 24 }, (_, i) => (
+                        {Array.from({ length: 10 }, (_, i) => (
                           <option key={i} value={i}>
                             {String(i).padStart(2, "0")}
                           </option>
@@ -132,13 +191,15 @@ function MainPage() {
                       </select>
                     </div>
                   </div>
-                  <button onClick={handleConfirm}>Confirm</button>
-                  <button
-                    onClick={() => setShowOverlay(false)}
-                    className="cancel"
-                  >
-                    Cancel
-                  </button>
+                  <div className="control-buttons">
+                    <button onClick={handleConfirm}>Confirm</button>
+                    <button
+                      onClick={() => setShowOverlay(false)}
+                      className="cancel"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -147,6 +208,8 @@ function MainPage() {
               src={isCounting ? sittingCat : sleepingCat}
               alt="cat"
               className="bottom-item"
+              id={isCounting ? undefined : "SleepingCat"}
+              onClick={isCounting ? handleSelectItem : undefined}
               style={{
                 height: "230px",
                 width: "230px",
@@ -154,7 +217,6 @@ function MainPage() {
               }}
             />
           </div>
-
           {!isCounting && (
             <button
               className="brown-button"
@@ -164,16 +226,13 @@ function MainPage() {
               Focus
             </button>
           )}
-
           {isCounting && (
             <div className="control-buttons">
               {!isPaused ? (
                 <>
-                <button onClick={handleStop}>Stop</button>
-                <button onClick={handlePause}>Paws</button>
+                  <button onClick={handleStop}>Stop</button>
+                  <button onClick={handlePause}>Paws</button>
                 </>
-          
-                
               ) : (
                 <>
                   <button onClick={handleStop}>Stop</button>
