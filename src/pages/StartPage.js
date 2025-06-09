@@ -34,6 +34,7 @@ const handleQuitClick = () => {
       <Header />
       <div className="text-body">
         Start a study timer and Bake some sweets (˶˃ ᵕ ˂˶)
+                </div>
         <div className="container">
 
           <div className="cat-stack">
@@ -42,6 +43,11 @@ const handleQuitClick = () => {
               alt="cat"
               id ="menu"
               style={{ height: '75px', width: 'auto', imageRendering: 'pixelated' }}
+              onClick={
+                () => {
+                  navigate('/menu');                 
+              }
+            }
             />
             <img
               src={sittingCat}
@@ -52,7 +58,6 @@ const handleQuitClick = () => {
           </div>
           <button className="brown-button" id="start-button" onClick={handleFocusClick} >Start</button>
         </div>
-      </div>
     </div>
   );
 }

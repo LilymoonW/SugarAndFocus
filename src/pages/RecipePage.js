@@ -5,13 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 function RecipePage() {
   const sessions = useAppStore((state) => state.sessions);
-  const latestSession = sessions.length > 0 ? sessions[sessions.length - 1] : null;
-
-  // Text fitting logic (same as before)
+  const selectedIndex = useAppStore((state) => state.selectedSessionIndex);
+  const latestSession =
+    selectedIndex !== null && sessions[selectedIndex]
+      ? sessions[selectedIndex]
+      : sessions[sessions.length - 1] || null;
+    // Text fitting logic (same as before)
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const [fontSize, setFontSize] = useState(64);
-  const horizontalPadding = 10;
+  const horizontalPadding = 5;
 
   useEffect(() => {
     const fitText = () => {
@@ -24,7 +27,7 @@ function RecipePage() {
       const availableWidth = container.offsetWidth - (horizontalPadding * 2);
 
       let min = 1;
-      let max = 30;
+      let max = 28;
       let size = 24;
       let foundSize = size;
 
@@ -78,6 +81,8 @@ function RecipePage() {
       <Header />
       <div className="text-body">
         Start a study timer and Bake some sweets (˶˃ ᵕ ˂˶)
+                </div>
+
         <div className="container" ref={containerRef}>
           <div
             ref={textRef}
@@ -100,9 +105,8 @@ function RecipePage() {
           </div>
           <div className="control-buttons">
             <button onClick={() => navigate('/main')}>Home</button>
-            <button>Menu</button>
+            <button onClick={() => navigate('/menu')}>Menu</button>
           </div>
-        </div>
       </div>
     </div>
   );
