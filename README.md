@@ -12,6 +12,8 @@ You can download the application for windows on the following website: https://l
 
 Designed with motivation in mind, this app combines productivity with pixel charm.
 
+Check out my Youtube Video on the development process: https://youtu.be/mIDlDRCioD0?si=vcD5v35LaGOjHMp0
+
 ---
 
 ## 🏆 Recognition  
