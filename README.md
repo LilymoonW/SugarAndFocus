@@ -1,12 +1,13 @@
-# 🍞 Sugar & Focus  
+#  Sugar & Focus  
+
 A cozy study companion to help you stay focused and earn rewards!
----
-## 🚀 Getting Started
+
+## Getting Started
 Use the website version by visiting the vercel website: https://sugar-and-focus.vercel.app/
 You can download the application for windows on the following website: https://lilysun.itch.io/sugar-focus
----
 
-## 🐱 About
+
+##  About
 
 **Sugar** is a pixel-style cat I designed to make studying more fun and rewarding. Start a timer, stay focused, and earn coins to unlock adorable recipes! Each completed session lets you cook a virtual dish that gets added to your recipe book.
 
@@ -16,20 +17,20 @@ Check out my Youtube Video on the development process: https://youtu.be/mIDlDRCi
 
 ---
 
-## 🏆 Recognition  
-**🥉 Third Place Winner** at **Wellesley 2025 Designathon**
+## Recognition  
+**Third Place Winner** at **Wellesley 2025 Designathon**
 
 ---
 
-## ✨ Features
+## Features
 
-- ⏱️ **Start a Focus Timer** – Stay on track with a Pomodoro-style timer  
-- 📚 **Track Sessions** – Saves your study sessions for later review  
-- 🍳 **Earn + Unlock Recipes** – Exchange coins for cute recipe collectibles  
-- 📘 **Recipe Book** – Successfully focused sessions add dishes to your collection
+-  **Start a Focus Timer** – Stay on track with a Pomodoro-style timer  
+-  **Track Sessions** – Saves your study sessions for later review  
+-  **Earn + Unlock Recipes** – Exchange coins for cute recipe collectibles  
+-  **Recipe Book** – Successfully focused sessions add dishes to your collection
 
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: React  
 - **Desktop App Framework**: Electron.js  
@@ -38,7 +39,7 @@ Check out my Youtube Video on the development process: https://youtu.be/mIDlDRCi
 
 ---
 
-## 📱 UI Demonstration
+## UI Demonstration
 
 <img width="300" alt="Figma UI" src="https://github.com/user-attachments/assets/11d2319b-5284-4496-adfb-1e8b2f8470cd" />
 <img width="300" alt="Figma UI" src="https://github.com/user-attachments/assets/086ea829-72c6-4f3c-b7f9-266663983eb9" />
@@ -47,7 +48,7 @@ Check out my Youtube Video on the development process: https://youtu.be/mIDlDRCi
 
 ---
 
-## 🎨 Design & Pixel Assets
+## Design & Pixel Assets
 
 Pixle assets were designed by me:
 
